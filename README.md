@@ -38,5 +38,19 @@ Add-Migration InitialIdentity -context AppIdentityDbContext -OutputDir Identity/
 Update-Database -context AppIdentityDbContext
 ```
 
+```
+Add-Migration BasketAdded -Context ShopContext -OutputDir Data/Migrations
+Update-Database -Context ShopContext
+```
+
 ## Resources
 * https://gist.github.com/yigith/c6f999788b833dc3d22ac6332a053dd1
+
+## önceki migrationa geri dönme
+```
+update-database InitialCreate -context ShopContext
+
+bu döndüðümüz migrationu silme
+remove-migration -context ShopContext
+```
+

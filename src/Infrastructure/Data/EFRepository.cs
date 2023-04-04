@@ -41,7 +41,7 @@ namespace Infrastructure.Data
 
         public Task<T?> FirsOrDefaultAsync(ISpecification<T> specification)
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().WithSpecification(specification).FirstOrDefaultAsync();
         }
 
         public Task<T> FirstAsync(ISpecification<T> specification)

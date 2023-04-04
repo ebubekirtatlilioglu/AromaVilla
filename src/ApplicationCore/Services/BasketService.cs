@@ -27,7 +27,7 @@ namespace ApplicationCore.Services
         {
             var basket = await GetOrCreateBasketAsync(buyerId);
             var basketItem=basket.Items.FirstOrDefault(x=>x.ProductId== productId);
-            if (basketItem!=null) 
+            if (basketItem==null) 
             {
                 basketItem = new BasketItem()
                 {

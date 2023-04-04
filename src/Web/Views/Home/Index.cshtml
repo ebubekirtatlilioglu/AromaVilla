@@ -30,7 +30,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <div>@item.Price.ToString("c2")</div>
-                <button class="btn btn-sm btn-outline-dark">
+                <button class="btn btn-sm btn-outline-dark" data-add-to-basket="@item.Id">
                     <i class="fa-solid fa-cart-plus"></i>
                 </button>
             </div>
@@ -38,7 +38,9 @@
     }
 </div>
 
-@{ var pi = Model.PaginationInfo; }
+@{
+    var pi = Model.PaginationInfo;
+}
 
 <div class="d-flex justify-content-center">
     <nav aria-label="Page navigation example">
@@ -100,3 +102,15 @@
     </nav>
 </div>
 <div class="text-center">Showing @pi.RangeStart-@pi.RangeEnd of @pi.TotalItems products</div>
+@section Scripts{
+    <script>
+        $("[data-add-to-basket]").click(function () {
+            let productId = $(this).data("add-to-basket");
+            let url = "@Url.Action("AddToBasket","Basket")";
+            $.post(url, { productId }, function (data) {
+                //kayouttaki sepet yazısının sağına toplam öğe sayısını koy
+                $("[data-total-items]").text(data.totalItems);
+            });
+        });
+    </script>
+}
