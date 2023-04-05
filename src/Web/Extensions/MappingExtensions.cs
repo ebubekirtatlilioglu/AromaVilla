@@ -14,8 +14,8 @@
                     PictureUri = x.Product.PictureUri,
                     ProductName = x.Product.Name,
                     Quantity = x.Quantity,
-                    UnitPrice = x.Product.Price
-
+                    UnitPrice = x.Product.Price,
+                    ProductId= x.ProductId
                 }).ToList()
             };
         }

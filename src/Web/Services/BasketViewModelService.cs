@@ -9,7 +9,7 @@ namespace Web.Services
         private readonly IBasketService _basketService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        private HttpContext? HttpContext=> _httpContextAccessor.HttpContext;
+        private HttpContext? HttpContext => _httpContextAccessor.HttpContext;
         private string? UserId => HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);////kullanıcı Id döndürmek için
         private string? AnonId => HttpContext?.Request.Cookies[Constants.BASKET_COOKIENAME];
         private string BuyerId => UserId ?? AnonId ?? CreateAnonymousId();
@@ -17,7 +17,7 @@ namespace Web.Services
         private string _createdAnonId = null!;
         private string? CreateAnonymousId()
         {
-            if (_createdAnonId==null)
+            if (_createdAnonId == null)
             {
                 _createdAnonId = Guid.NewGuid().ToString();
                 HttpContext?.Response.Cookies.Append(Constants.BASKET_COOKIENAME, _createdAnonId, new CookieOptions()
@@ -29,14 +29,14 @@ namespace Web.Services
             return _createdAnonId;
         }
 
-        public BasketViewModelService(IBasketService basketService,IHttpContextAccessor httpContextAccessor)
+        public BasketViewModelService(IBasketService basketService, IHttpContextAccessor httpContextAccessor)
         {
             _basketService = basketService;
             _httpContextAccessor = httpContextAccessor;
         }
         public async Task<BasketViewModel> AddItemToBasketAsync(int productId, int quantity)
         {
-            var basket= await _basketService.AddItemToBasketAsync(BuyerId,productId, quantity);
+            var basket = await _basketService.AddItemToBasketAsync(BuyerId, productId, quantity);
             return basket.ToBasketViewModel();
         }
 
@@ -44,6 +44,30 @@ namespace Web.Services
         {
             var basket = await _basketService.GetOrCreateBasketAsync(BuyerId);
             return basket.ToBasketViewModel();
+        }
+
+        public async Task EmptyBasketAsync()
+        {
+            await _basketService.EmptyBasketAsync(BuyerId);
+        }
+
+        public async Task DeleteBasketItemAsync(int productId)
+        {
+            await _basketService.DeleteBasketItemAsync(BuyerId, productId);
+        }
+
+        public async Task UpdateBasketAsync(Dictionary<int, int> quantities)
+        {
+            await _basketService.SetQuantities(BuyerId, quantities);
+        }
+        public async Task TransferBasketAsync()
+        {
+            if (AnonId == null || UserId == null)
+            {
+                return;
+            }
+            await _basketService.TransferBasketAsync(AnonId, UserId);
+            HttpContext?.Response.Cookies.Delete(Constants.BASKET_COOKIENAME);
         }
     }
 }

@@ -9,12 +9,16 @@ body {
 }
 
 .product-name {
-    height: 3.375rem;
+    height: 3.3rem;
     overflow:hidden;
     text-overflow:ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient:vertical;
-    font-weight:600;
-    font-size: 1.125rem;
+    font-weight:500;
+    font-size: 1.1rem;
+}
+
+.number-input > .quantity {
+    width: 70px;
 }

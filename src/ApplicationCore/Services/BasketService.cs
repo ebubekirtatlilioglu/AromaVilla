@@ -82,7 +82,7 @@ namespace ApplicationCore.Services
 
             foreach (var item in basket.Items)
             {
-                if (quantities.ContainsKey(item.Id))
+                if (quantities.ContainsKey(item.ProductId))
                 {
                     item.Quantity = quantities[item.ProductId];
                     await _basketItemRepo.UpdateAsync(item);
