@@ -8,5 +8,6 @@
         Task DeleteBasketItemAsync(int productId);
         Task UpdateBasketAsync(Dictionary<int, int> quantities);
         Task TransferBasketAsync();
+        Task CheckoutAsync(string street,string city, string? state,string country,string zipCode);
     }
 }
