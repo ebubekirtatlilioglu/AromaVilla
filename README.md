@@ -23,6 +23,11 @@ Install-Package Ardalis.Specification.EntityFrameworkCore  -v 6.1.0
 Install-Package Microsoft.EntityFrameworkCore.Tools -v 6.0.15
 ```
 
+### Unit-Tests
+```
+Install-Package Moq
+```
+
 ### Migrations
 Before running the following commands, make sure that "Web" is set as startup project. Run the following 
 commands on the projects "Infrastructure"
