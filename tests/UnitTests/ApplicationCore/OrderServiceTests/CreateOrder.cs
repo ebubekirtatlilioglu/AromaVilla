@@ -50,7 +50,7 @@ namespace UnitTests.ApplicationCore.OrderServiceTests
             IOrderService orderService=new OrderService(basketService,orderRepo);
 
             //iddia ediyorum(assert) fırlatmalıdır(throw) EmptyBasketException hatası
-            //orderService sınıfın CreateOrderAsync metodu boş sepete  sahip bir kullanıcı
+            //orderService sınıfın CreateOrderAsync metodu boş sepete  sahip bir kullanıcı için çağrıldığında
             await Assert.ThrowsAsync<EmptyBasketException>(async () =>
                   await orderService.CreateOrderAsync(_demoBuyerId, _demoAddress));
         }
